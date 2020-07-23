@@ -8,6 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
 import com.example.projeto.dto.AuthorDTO;
+import com.example.projeto.dto.CommentDTO;
 import com.example.projeto.entities.Post;
 import com.example.projeto.entities.User;
 import com.example.projeto.repository.PostRepository;
@@ -42,11 +43,17 @@ public class Instantiation implements CommandLineRunner{
 		Post post2 = new Post(null, sdf.parse("22/20/2020"), "ja cheguei canadá", "god god god", new AuthorDTO(maria));
 		
 		
+		CommentDTO com1 = new CommentDTO("Boa viagem mano", sdf.parse("22/02/2020"), new AuthorDTO(alex));
+		CommentDTO com3 = new CommentDTO("volte logo", sdf.parse("22/02/2020"), new AuthorDTO(bob));
+		
+		post1.getComments().addAll(Arrays.asList(com1, com3));
+		
 		postRepository.saveAll(Arrays.asList(post1,post2));
 		
 		maria.getList().addAll(Arrays.asList(post1,post2));
 		userRepository.saveAll(Arrays.asList(maria));
 		
+		userRepository.saveAll(Arrays.asList(alex,bob));
 		
 		
 		
